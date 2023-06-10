@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4jt(+s1v*qvza_o!bi^840jrze$d*e2whnp1(w0bp5727(7et&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['smartquestionpapergenerator-production.up.railway.app']
 
 
 # Application definition

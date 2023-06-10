@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QpGenerator</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/8b96f471bf.js" crossorigin="anonymous"></script>
+
+    <style>
+        #profile{
+            background: #DCDCDC;
+            outline: 3px solid #0d6efd;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 30px;
+            cursor: pointer;
+        }
+          
+        .dropdown-menu {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+        <div class="logo">
+            <h1>QP Generator</h1>
+            <!-- <h1><a href="index.html">Vesperr</a></h1> -->
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+            <li><a class="nav-link scrollto" href="{% url 'home' %}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'home' %}#services">Services</a></li>
+            <li><a class="nav-link scrollto {% block user_nav %}{% endblock user_nav %}" href="
+                {% for group in request.user.groups.all %}
+                    {% if group.name == "Admin" %}
+                        {% url 'dept' %}
+                    {% else %}
+                        {% url 'course' group.id %}
+                    {% endif %}
+                {% endfor %}
+            ">Department</a></li>
+
+            <!-- <li><a class="nav-link scrollto" href="{% url 'home' %}#about">About</a></li>
+            <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
+            <li><a class="nav-link scrollto" href="#team">Team</a></li>
+            <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                    <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Drop Down 2</a></li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+                </ul>
+            </li>
+            
+            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+            -->
+            {% for group in request.user.groups.all %}
+                {% if group.name == "Admin" %}
+                    <li><a class="nav-link scrollto {% block admin_nav %}{% endblock admin_nav %}" href="{% url 'adminPage' %}">Admin</a></li>
+                {% endif %}
+            {% endfor %}
+            <li><a class="disabled" href="">{{ request.user }}</a></li>
+            <li class="dropdown"><i class="fas fa-user" id="profile"></i>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'password_change' %}">Change password</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+    <main id="main">
+
+        <!-- ======= Breadcrumbs Section ======= -->
+        <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+            <h2>{% block page_name %}Inner Page{% endblock page_name %}</h2>
+            <ol>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li>{% block page_name1 %}Inner Page{% endblock page_name1 %}</li>
+            </ol>
+            </div>
+
+        </div>
+        </section><!-- End Breadcrumbs Section -->
+
+        <section class="inner-page">
+        <div class="container">
+            {% block body %} 
+            <p>
+            Example inner page template
+            </p>
+            {% endblock body %}
+        </div>
+        </section>
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-6 text-lg-left text-center">
+            <div class="copyright">
+                &copy; Copyright <strong>QP Generator</strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/vesperr-free-bootstrap-template/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+            </div>
+            <div class="col-lg-6">
+            <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+                <a href="{% url 'home' %}" class="scrollto">Home</a>
+                <a href="{% url 'home' %}#about" class="scrollto">About</a>
+                <a href="https://ijrpr.com/uploads/V4ISSUE5/IJRPR12724.pdf" target="_blank">Documentation</a>
+            </nav>
+            </div>
+        </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- Disappearing Messages -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script text="javascript">
+        setTimeout(fade_out, 2500);
+        function fade_out() {
+            $(".messages").fadeOut("slow");
+        }
+    </script>
+
+  </body>
+</html>

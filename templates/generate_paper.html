@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QpGenerator</title>
+    <style>
+        @page {
+            size: a4 portrait;
+            
+            @frame content_frame {          /* Content Frame */
+                margin: 20pt; padding-bottom: 30pt; padding-top: 20px; padding-left: 10px; padding-right: 10px;
+                -pdf-frame-border: 1;
+            }
+            @frame footer_frame {           /* Another static Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 800pt; height: 20pt;
+            }
+            @frame footer_frame {           /* Another static Frame */
+                -pdf-frame-content: footer_content1;
+                left: 50pt; right: 50pt; top: 800pt; height: 20pt;
+            }
+        }
+        #footer_content1{
+            text-align: right;
+        }
+        .partb td{
+            padding: 0.8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="footer_content">
+        <b><pdf:pagenumber> &nbsp; | <pdf:pagecount></b> Pages
+    </div>
+    <div id="footer_content1">
+        {{ course.ccode }}
+    </div>
+    <div class="container">
+    <!-- Header -->
+    <h1><center>MVJ COLLEGE OF ENGINEERING-BENGALURU<center></h1>
+    <h2><center>{{ sem }} Semester B.E. Degree (Autonomous) Examinations, {{ exam_date }}<center></h2>
+    <table>
+        <tr>
+            <td style="width: 5%;">USN</td>
+            <td style="width: 75%;">
+                <table>
+                    <tr style="border: 1px solid black;">
+                        <td style="width: 6%; height: 25px;">&nbsp;</td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 6%;"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 20%; text-align: right;"><b>{{ course.ccode }}</b></td>
+        </tr>
+    </table>
+    <br>
+    <h1><center>{{ pname }}<center></h1>
+    <h1><center>{{ dept }}<center></h1>
+    <table>
+        <tr>
+            <td style="width: 50%;">Duration: 3Hrs.</td>
+            <td style="width: 50%; text-align: right;">Maximum Marks: 100</td>
+        </tr>
+    </table>
+    <i>Note:</i>
+    <ul style="padding-left: 20px;">
+        <li><i>Answer all Questions in Part-A.</i></li>
+        <li><i>Answer any five full questions in Part-B choosing one full question from each module.</i></li>
+    </ul>
+    <br>
+    <!-- End header -->
+
+    <!-- Main -->
+    <center><b>Part A</b></center>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" style="width: 5%; padding: 5px;">Q.No.</th>
+                <th scope="col" style="width: 90%;"></th>
+                <th scope="col" style="width: 5%;">Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q, o1, o2, o3, o4, mark in mcq %}
+            <tr>
+                <td style="text-align: center; vertical-align: top;">{{ forloop.counter }}</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td colspan="2">{{ q }}</td>
+                        </tr>
+                        <tr>
+                            <td>a) {{ o1 }}</td>
+                            <td>b) {{ o2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>c) {{ o3 }}</td>
+                            <td>d) {{ o4 }}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align: center; vertical-align: bottom;">{{ mark }}</td>
+            </tr>
+            <tr><td colspan="3"></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <center><b>Part B</b></center>
+    <center><b>Each Questions carries 16 Marks</b></center>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" style="width: 5%; padding: 5px;">Q.No.</th>
+                <th scope="col" style="width: 90%;"></th>
+                <th scope="col" style="width: 5%;">Marks</th>
+            </tr>
+        </thead>
+        <tbody class="partb">
+            {% for m in mod %}
+            <tr><td colspan="3"><center><b>Module-{{m}}</b><center></td></tr>
+            <tr>
+                <td style="text-align: center; vertical-align: top;">{% cycle '1' '3' '5' '7' '9' %}</td>
+                <td>
+                    <table>
+                        {% cycle q1a q2a q3a q4a q5a as part_a silent %}
+                        {% for q in part_a %}
+                        <tr>
+                            <td style="width: 5%; text-align: center; vertical-align: top;">{% cycle 'a)' 'b)' 'c)' 'd)' 'e)' %}</td>
+                            <td style="width: 95%;">{{ q }}</td>
+                        </tr>
+                        {% endfor %}{% resetcycle %} 
+                    </table>
+                </td>
+                <td style="text-align: center; vertical-align: bottom;">
+                    <table>
+                        {% cycle q1a_mark q2a_mark q3a_mark q4a_mark q5a_mark as part_a_mark silent %}
+                        {% for mark in part_a_mark %}
+                        <tr>
+                            <td>{{ mark }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            <tr><td colspan="3"><center><b>OR</b><center></td></tr>
+            <tr>
+                <td style="text-align: center; vertical-align: top;">{% cycle '2' '4' '6' '8' '10' %}</td>
+                <td>
+                    <table>
+                        {% cycle q1b q2b q3b q4b q5b as part_b silent %}
+                        {% for q in part_b %}
+                        <tr>
+                            <td style="width: 5%; text-align: center; vertical-align: top;">{% cycle 'a)' 'b)' 'c)' 'd)' 'e)' %}</td>
+                            <td style="width: 95%;">{{ q }}</td>
+                        </tr>
+                        {% endfor %}{% resetcycle %} 
+                    </table>
+                </td>
+                <td style="text-align: center; vertical-align: bottom;">
+                    <table>
+                        {% cycle q1b_mark q2b_mark q3b_mark q4b_mark q5b_mark as part_b_mark silent %}
+                        {% for mark in part_b_mark %}
+                        <tr>
+                            <td>{{ mark }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- End main -->
+    </div>
+</body>
+</html>

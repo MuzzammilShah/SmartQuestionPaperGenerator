@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block user_nav %}active{% endblock user_nav %}
+
+{% block page_name %}{{ course_name }}{% endblock page_name %}
+{% block page_name1 %}<a href="
+                {% for group in request.user.groups.all %}
+                    {% if group.name == "Admin" %}
+                        {% url 'course_admin' pk %}
+                    {% else %}
+                        {% url 'course' pk %}
+                    {% endif %}
+                {% endfor %}">Back</a>{% endblock page_name1 %}
+
+{% block body %}
+
+    {% if messages %}
+        <span class="messages">
+        <div class="alert alert-success">
+            <center>
+                {% for message in messages %}
+                    {{ message }}
+                    <!--use {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %} to remove bullet points-->
+                {% endfor %}
+            </center>
+        </div>
+        </span>
+    {% endif %}
+
+    <!-- ======= Services Section ======= -->
+    <section id="user_services" class="services">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Modules</h2>
+            <!-- <p>We offer a wide range of high class services which includes</p> -->
+            </div>
+
+            <div class="row">
+
+                {% for module in modules %}
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-5">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                    <a href="{% url 'delete_module' module.id %}" onclick="return confirm('Are you sure you want to delete the module {{ module.mname }}?\nNote: All questions corresponding to module {{ module.mname }} will also be deleted.')"><i class="fas fa-trash" style="color: red; font-size: 20px; margin-right: 10px; float:right;"></i></a>
+                    <a href="{% url 'update_module' module.id %}"><i class="fas fa-edit" style="color: black; font-size: 20px; margin-right: 10px; float:right;"></i></a>
+                    <h4 class="title"><a href="{% url 'questions' module.id %}">{{module.modno}}. {{ module.mname }}</a></h4>
+                    <p class="description">Click here to view or add questions in Module {{module.modno}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-5">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon"><i class="fas fa-plus" style="font-size: 40px;"></i></div>
+                    <h4 class="title"><a href="{% url 'create_module' course_id %}">Add Module</a></h4>
+                    <p class="description">Click here to add new module</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+{% endblock body %}

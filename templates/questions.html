@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block user_nav %}active{% endblock user_nav %}
+
+{% block page_name %}{{module.course.cname}}-{{module.mname}}{% endblock page_name %}
+{% block page_name1 %}<a href="{% url 'modules' pk %}">Back</a>{% endblock page_name1 %}
+
+{% block body %}
+
+    {% if messages %}
+        <span class="messages">
+        <div class="alert alert-success">
+            <center>
+                {% for message in messages %}
+                    {{ message }}
+                    <!--use {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %} to remove bullet points-->
+                {% endfor %}
+            </center>
+        </div>
+        </span>
+    {% endif %}
+
+    <!-- ======= Services Section ======= -->
+    <section id="user_services" class="services">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Questions</h2>
+            <!-- <p>We offer a wide range of high class services which includes</p> -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-5">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                    <h4 class="title"><a href="{% url 'mcq_questions' module.id %}">MCQ</a></h4>
+                    <p class="description">Click here to view MCQ questions</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-5">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                    <h4 class="title"><a href="{% url 'theory_questions' module.id %}">Theory</a></h4>
+                    <p class="description">Click here to view Theoretical questions</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-5">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon"><i class="fas fa-plus" style="font-size: 40px;"></i></div>
+                    <h4 class="title"><a href="{% url 'create_mcq' module.id %}">Add MCQ</a></h4>
+                    <p class="description">Click here to add MCQ questions</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-5">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon"><i class="fas fa-plus" style="font-size: 40px;"></i></div>
+                    <h4 class="title"><a href="{% url 'create_question' module.id %}">Add Question</a></h4>
+                    <p class="description">Click here to add Theoretical questions</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+{% endblock body %}

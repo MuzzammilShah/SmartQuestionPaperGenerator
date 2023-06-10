@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+
+{% block profile_style %}
+    <style>
+        #profile{
+            background: #DCDCDC;
+            outline: 3px solid #0d6efd;;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 30px;
+            cursor: pointer;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
+    </style>
+{% endblock profile_style %}
+
+{% block dept %}
+    <li><a class="nav-link scrollto {% block user_nav %}{% endblock user_nav %}" href="
+        {% for group in request.user.groups.all %}
+            {% if group.name == "Admin" %}
+                {% url 'dept' %}
+            {% else %}
+                {% url 'course' group.id %}
+            {% endif %}
+        {% endfor %}
+    ">Department</a></li>
+{% endblock dept %}
+
+{% block remove_about %}{% endblock remove_about %}
+{% block remove_team %}{% endblock remove_team %}
+
+{% block admin %}
+    {% for group in request.user.groups.all %}
+        {% if group.name == "Admin" %}
+            <li><a class="nav-link scrollto" href="{% url 'adminPage' %}">Admin</a></li>
+        {% endif %}
+    {% endfor %}
+{% endblock admin %}
+
+{% block profile %}
+    <li class="dropdown"><i class="fas fa-user" id="profile"></i>
+        <ul class="dropdown-menu">
+            <li><a href="{% url 'password_change' %}">Change password</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </li>
+{% endblock profile %}
+
+{% block username %}
+<li><a class="disabled" href="#contact">{{ request.user }}</a></li>
+{% endblock username %}
+
+{% block welcomeuser %}
+Welcome {{request.user}}!
+{% endblock welcomeuser %}
+
+{% block welcomeuser1 %}
+Get ready to level up your Question paper generation experience!
+{% endblock welcomeuser1 %}
+
+{% block get_started %}{% endblock get_started %}

@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block user_nav %}active{% endblock user_nav %}
+
+{% block page_name %}Department of {{ group }}{% endblock page_name %}
+{% block page_name1 %}
+{% block page_name1_admin %}
+                Department
+{% endblock page_name1_admin %}
+{% endblock page_name1 %}
+
+{% block body %}
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Year 1</h2><br>
+            <h4>Sem 1</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem1 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}     
+            </div>
+
+            <br><br>
+
+            <div class="section-title" data-aos="fade-up">
+            <h4>Sem 2</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300"> 
+                {% for course in sem2 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </section><!-- End Features Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Year 2</h2><br>
+            <h4>Sem 3</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem3 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+
+            <br><br>
+
+            <div class="section-title" data-aos="fade-up">
+            <h4>Sem 4</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem4 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </section><!-- End Features Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Year 3</h2><br>
+            <h4>Sem 5</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem5 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+
+            <br><br>
+
+            <div class="section-title" data-aos="fade-up">
+            <h4>Sem 6</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem6 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </section><!-- End Features Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Year 4</h2><br>
+            <h4>Sem 7</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem7 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+
+            <br><br>
+
+            <div class="section-title" data-aos="fade-up">
+            <h4>Sem 8</h4>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                {% for course in sem8 %}
+                <div class="col-lg-3 col-md-4 mt-4">
+                    <div class="icon-box">
+                    <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                    <h3><a href="{% url 'modules' course.id %}">{{ course.cname }}</a></h3>
+                    </div>
+                </div>
+                {% empty %}<center>No course enrolled</center>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </section><!-- End Features Section -->
+
+{% endblock body %}

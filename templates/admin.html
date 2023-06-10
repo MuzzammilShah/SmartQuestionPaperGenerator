@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block admin_nav %}active{% endblock admin_nav %}
+
+{% block page_name %}Admin{% endblock page_name %}
+{% block page_name1 %}Admin{% endblock page_name1 %}
+
+{% block body %}
+
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.level_tag == "error" %}
+            <span class="messages">
+                <div class="alert alert-danger">
+                    <center>
+                        {% for message in messages %}
+                            {{ message }}
+                            <!--use {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %} to remove bullet points-->
+                        {% endfor %}
+                    </center>
+                </div>
+            </span>
+        
+        {% else %}
+            <span class="messages">
+                <div class="alert alert-success">
+                    <center>
+                        {% for message in messages %}
+                            {{ message }}
+                            <!--use {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %} to remove bullet points-->
+                        {% endfor %}
+                    </center>
+                </div>
+            </span>
+
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <!-- ======= Services Section ======= -->
+    <section id="admin_services" class="services">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Services</h2>
+            
+            </div>
+
+            <div class="row">
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                <h4 class="title"><a href="{% url 'create_user' %}">Create User</a></h4>
+                <p class="description">Click here to create user account for the teachers</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon"><i class="bx bx-file"></i></div>
+                <h4 class="title"><a href="{% url 'create_group' %}">Create Department</a></h4>
+                <p class="description">Click here to add the departments</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon"><i class="bx bx-file"></i></div>
+                <h4 class="title"><a href="{% url 'create_course' %}">Create Course</a></h4>
+                <p class="description">Click here to add courses offered by the institute</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon"><i class="bx bx-file"></i></div>
+                <h4 class="title"><a href="{% url 'generate_paper_form' %}">Generate paper</a></h4>
+                <p class="description">Click here to generate the paper</p>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="admin_paper_services" class="services">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Papers</h2>
+            <p>All generated papers can be viewed and downloaded here</p>
+            </div>
+
+            <div class="row">
+                                
+                <div class="table" data-aos="fade-up">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 5%">#</th>
+                                <th scope="col" style="width: 35%">Name</th>
+                                <th scope="col" style="width: 30%">Dept</th>
+                                <th scope="col" style="width: 5%"><center>Sem</center></th>
+                                <th scope="col" style="width: 10%"><center>Term</center></th>
+                                <th scope="col" style="width: 5%">View</th>
+                                <th scope="col" style="width: 5%">Download</th>
+                                <th scope="col" style="width: 5%">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for p in papers %}
+                            <tr>
+                                <td scope="row">{{ forloop.counter }}</td>
+                                <td>
+                                    <p class="description">{{ p.pname }}</p>
+                                </td>
+                                <td><p class="description">{{ p.dept }}</p></td>
+                                <td><p class="description"><center>{{ p.sem }}</center></p></td>
+                                <td><p class="description"><center>{{ p.term }}</center></p></td>
+                                <td><div class="view_icon" style="text-align: center;"><a href="{% url 'view_paper' p.id %}"><i class="fas fa-eye" style="color: black; font-size: 20px;"></i></a></div></td>
+                                <td><div class="download_icon" style="text-align: center;"><a href="{% url 'download_paper' p.id %}"><i class="fas fa-download" style="color: blue; font-size: 20px;"></i></a></div></td>
+                                <td><div class="delete_icon" style="text-align: center;"><a href="{% url 'delete_paper' p.id %}" onclick="return confirm('Are you sure you want to delete the Question paper {{ p.pname }}?\nNote: Question paper will be deleted permanently.')"><i class="fas fa-trash" style="color: red; font-size: 20px;"></i></a></div></td>
+                            </tr>
+                            {% endfor %} 
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+{% endblock body %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block user_nav %}active{% endblock user_nav %}
+
+{% block page_name %}{{module.course.cname}}-{{module.mname}}{% endblock page_name %}
+{% block page_name1 %}<a href="{% url 'questions' pk %}">Back</a>{% endblock page_name1 %}
+
+{% block body %}
+
+    {% if messages %}
+        <span class="messages">
+        <div class="alert alert-success">
+            <center>
+                {% for message in messages %}
+                    {{ message }}
+                    <!--use {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %} to remove bullet points-->
+                {% endfor %}
+            </center>
+        </div>
+        </span>
+    {% endif %}
+
+    <!-- ======= Services Section ======= -->
+    <section id="user_services" class="services">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+            <h2>Questions</h2>
+
+            </div>
+
+            <div class="row">
+                                
+                <div class="table" data-aos="fade-up">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 5%">#</th>
+                                <th scope="col" style="width: 75%">Question</th>
+                                <th scope="col" style="width: 5%">Marks</th>
+                                <th scope="col" style="width: 5%"><center>Difficulty Level</center></th>
+                                <th scope="col" style="width: 5%"><center>Cognitive Level</center></th>
+                                <th scope="col" style="width: 5%">Update</th>
+                                <th scope="col" style="width: 5%">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for q in questions %}
+                            <tr>
+                                <td scope="row">{{ forloop.counter }}</td>
+                                <td>
+                                    <p class="description">{{ q.question }}</p>
+                                </td>
+                                <td><p class="description"><center>{{ q.marks }}</center></p></td>
+                                <td><p class="description"><center>{{ q.difficulty }}</center></p></td>
+                                <td><p class="description"><center>{{ q.rbt_level }}</center></p></td>
+                                <td><div class="update_icon" style="text-align: center;"><a href="{% url 'update_question' q.id %}"><i class="fas fa-edit" style="color: black; font-size: 20px;"></i></a></div></td>
+                                <td><div class="delete_icon" style="text-align: center;"><a href="{% url 'delete_question' q.id %}" onclick="return confirm('Are you sure you want to delete the question {{ q.question }}?\nNote: Question wiil be deleted permanently.')"><i class="fas fa-trash" style="color: red; font-size: 20px;"></i></a></div></td>
+                            </tr>
+                            {% endfor %} 
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+{% endblock body %}
